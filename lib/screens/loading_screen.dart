@@ -1,3 +1,5 @@
+import 'package:clima_app/screens/location_screen.dart';
+import 'package:clima_app/services.dart/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -12,6 +14,19 @@ class LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
+    getLocation();
+  }
+
+  void getLocation() async {
+    var currentWeatherData = await WeatherModel().getLocationWeather();
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => LocationScreen(
+                weatherData: currentWeatherData,
+              )),
+    );
   }
 
   @override
